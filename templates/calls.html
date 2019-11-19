@@ -1,0 +1,72 @@
+{% extends 'layout.html' %}
+{% block header %}
+  <h1>{% block title %}Calls{% endblock %}</h1>
+{% endblock %}
+
+{% block content %}
+<div id="content-wrapper">
+
+  <div class="container-fluid">
+
+
+    <!-- DataTables Example -->
+    <div class="card mb-3">
+      <div class="card-header">
+        <i class="fas fa-table"></i>
+        Ongoing Call List</div>
+      <div class="card-body">
+        <div class="table-responsive">
+          <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+            <thead>
+              <tr>
+                <th>No</th>
+                <th>ID</th>
+                <th>Space Name</th>
+
+              </tr>
+            </thead>
+            <tfoot>
+              <tr>
+                <th>No</th>
+                <th>ID</th>
+                <th>Space Name</th>
+              </tr>
+            </tfoot>
+            <tbody>
+              {% for i in range(count) %}
+              <tr>
+                <td>{{i+1}}</td>
+                <td>{{ id[i] }}</td>
+                <td><a href="{{ url_for('calldetail',callid=id[i],callname=name[i])}}">{{name[i]}}</a></td>
+                <!--<td>{{name[i]}}</td>-->
+
+              </tr>
+              {% endfor %}
+
+
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+    </div>
+
+
+
+  </div>
+  <!-- /.container-fluid -->
+
+  <!-- Sticky Footer -->
+  <footer class="sticky-footer">
+    <div class="container my-auto">
+      <div class="copyright text-center my-auto">
+        <span>Copyright © PPJI 2019</span>
+      </div>
+    </div>
+  </footer>
+
+</div>
+<!-- /.content-wrapper -->
+
+</div>
+{% endblock %}

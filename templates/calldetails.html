@@ -1,0 +1,93 @@
+{% extends 'layout.html' %}
+{% block header %}
+  <h1>{% block title %}Call Details{% endblock %}</h1>
+{% endblock %}
+
+{% block content %}
+<div id="content-wrapper">
+
+  <div class="container-fluid">
+
+    <div class="card mb-3">
+      <div class="card-body">
+        <form action="{{ url_for('calldetail',callid=request.args.get('callid'),m=2)}}" method="post">
+          Broadcast Message<br><br>
+          <input type="text" placeholder="Message" name="message">
+          <select name="position">
+            <option value="">--Please choose message position--</option>
+            <option value="top">Top</option>
+            <option value="middle">Middle</option>
+            <option value="bottom">Bottom</option>
+        </select>
+          <select name="duration">
+            <option value="">--Please choose duration--</option>
+            <option value="5">5 Seconds</option>
+            <option value="10">10 Seconds</option>
+            <option value="15">15 Seconds</option>
+            <option value="permanent">Permanent</option>
+        </select>
+          <input type="submit" value="Send">
+        </form>
+      </div>
+    </div>
+
+    <!-- DataTables Example -->
+    <div class="card mb-3">
+      <div class="card-header">
+        <i class="fas fa-table"></i>
+        Participants List in {{request.args.get('callname')}}</div>
+      <div class="card-body">
+        <div class="table-responsive">
+          <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+            <thead>
+              <tr>
+                <th>No</th>
+                <th>Name</th>
+                <th>ID</th>
+                <th>Change Name</th>
+
+              </tr>
+            </thead>
+            <tfoot>
+              <tr>
+                <th>No</th>
+                <th>Name</th>
+                <th>ID</th>
+                <th>Change Name</th>
+              </tr>
+            </tfoot>
+            <tbody>
+              {% for i in range(count) %}
+              <tr>
+                <td>{{i+1}}</td>
+                <td>{{name[i]}}</td>
+                <td>{{ id[i] }}</td>
+                <td>
+                <form action="{{ url_for('calldetail',id=id[i],callid=request.args.get('callid'),m=1)}}" method="post">
+                  <input type="text" placeholder="New Name" name="newname">
+                  <input type="submit" value="Change">
+                </form>
+                </td>
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Sticky Footer -->
+  <footer class="sticky-footer">
+    <div class="container my-auto">
+      <div class="copyright text-center my-auto">
+        <span>Copyright © PPJI 2019</span>
+      </div>
+    </div>
+  </footer>
+
+</div>
+<!-- /.content-wrapper -->
+
+</div>
+{% endblock %}
